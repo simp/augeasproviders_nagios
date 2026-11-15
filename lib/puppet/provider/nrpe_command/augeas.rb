@@ -24,7 +24,7 @@ Puppet::Type.type(:nrpe_command).provide(:augeas, parent: Puppet::Type.type(:aug
         new({
               ensure: :present,
               name: path_label(aug, spath),
-              command: aug.get(spath)
+              command: aug.get(spath),
             })
       end
     end

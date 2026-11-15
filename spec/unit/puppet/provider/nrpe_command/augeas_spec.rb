@@ -12,7 +12,7 @@ describe provider_class do
                name: 'check_spec_test',
                command: "/usr/bin/check_my_thing -p 'some command with \"multiple [types]\" of quotes' -x and-stuff",
                target: target,
-               provider: 'augeas'
+               provider: 'augeas',
              ))
 
       augparse(target, 'Nrpe.lns', '
@@ -28,8 +28,8 @@ describe provider_class do
     let(:target) { tmptarget.path }
 
     it 'lists instances' do
-      allow(provider_class).to receive(:target).and_return(target)
-      inst = provider_class.instances.map do |p|
+      allow(described_class).to receive(:target).and_return(target)
+      inst = described_class.instances.map do |p|
         {
           name: p.get(:name),
           ensure: p.get(:ensure),
@@ -51,7 +51,7 @@ describe provider_class do
                name: 'check_test',
                ensure: 'absent',
                target: target,
-               provider: 'augeas'
+               provider: 'augeas',
              ))
 
       aug_open(target, 'Nrpe.lns') do |aug|
@@ -64,7 +64,7 @@ describe provider_class do
                name: 'check_users',
                command: '/usr/lib/nagios/plugins/check_users -w 10 -c 20',
                target: target,
-               provider: 'augeas'
+               provider: 'augeas',
              ))
 
       augparse_filter(target, 'Nrpe.lns', 'command[check_users]', '
@@ -79,7 +79,7 @@ describe provider_class do
                name: 'check_spec_test',
                command: "/usr/bin/check_my_thing -p 'some command with \"multiple [types]\" of quotes' -x and-stuff",
                target: target,
-               provider: 'augeas'
+               provider: 'augeas',
              ))
 
       augparse_filter(target, 'Nrpe.lns', 'command[check_spec_test]', '
@@ -99,7 +99,7 @@ describe provider_class do
                     name: 'check_this',
                     command: '/usr/bin/mycheck -w this',
                     target: target,
-                    provider: 'augeas'
+                    provider: 'augeas',
                   ))
 
       txn.any_failed?.should_not.nil?
